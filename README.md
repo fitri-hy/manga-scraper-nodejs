@@ -9,6 +9,10 @@ Manga-Scraper-NodeJS adalah aplikasi berbasis Node.js yang dirancang untuk mengu
 - No Database
 - Basic scrapper
 - Mudah di custom
+- Daftar Manga
+- Pencarian Manga
+- Detail Manga
+- Daftar Chapter Manga
 
 ## Install
 ```

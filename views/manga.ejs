@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+	<div class="container mx-auto my-4">
+			<h1 class="text-2xl font-bold mb-4">Daftar Manga Terbaru</h1>
+			<form action="/search" method="GET" class="mb-4">
+				<input type="text" name="q" placeholder="Cari Manga..." class="border p-2 rounded" required>
+				<button type="submit" class="bg-blue-500 text-white p-2 rounded">Cari</button>
+			</form>
+		</div>
+    <div class="container mx-auto my-4">
+        <h1 class="text-2xl font-bold mb-4">Daftar Manga Terbaru</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <% mangaList.forEach(manga => { %>
+				<a href="/manga/detail/<%= encodeURIComponent(manga.link.split('/').slice(-2, -1)[0]) %>">
+					<div class="border border-gray-300 shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+						<img src="<%= manga.image %>" alt="<%= manga.title %>" class="w-full h-64 object-cover mb-2">
+						<div class="p-4">
+							<h3 class="font-semibold text-lg mb-2 hover:text-blue-500 transition-colors">
+								<%= manga.title %>
+							</h3>
+							<p class="text-sm text-gray-600"><strong>Genre:</strong> <%= manga.genre %></p>
+							<p class="text-sm text-gray-600"><strong>Pembaca:</strong> <%= manga.readers %></p>
+							<p class="text-sm text-gray-600"><strong>Ringkasan:</strong> <%= manga.summary %></p>
+							<p class="text-sm text-gray-600"><strong>Chapter Terbaru:</strong> <%= manga.latestChapter %></p>
+						</div>
+					</div>
+				</a>
+			<% }) %>
+        </div>
+        <button id="load-more" class="mt-4 bg-blue-500 text-white p-2 rounded">Load More</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let currentPage = 1;
+
+        $('#load-more').on('click', function() {
+            currentPage++;
+            $.ajax({
+                url: `/?page=${currentPage}`,
+                method: 'GET',
+                success: function(data) {
+                    const mangaList = data.mangaList; // Ambil mangaList dari respons
+                    if (mangaList.length > 0) {
+                        mangaList.forEach(manga => {
+                            $('.grid').append(`
+								<a href="/manga/detail/${encodeURIComponent(manga.link.split('/').slice(-2, -1)[0])}">
+									<div class="border border-gray-300 shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 duration-300">
+										<img src="${manga.image}" alt="${manga.title}" class="w-full h-64 object-cover mb-2">
+										<div class="p-4">
+											<h3 class="font-semibold text-lg mb-2 hover:text-blue-500 transition-colors">
+												${manga.title}
+											</h3>
+											<p class="text-sm text-gray-600"><strong>Genre:</strong> ${manga.genre}</p>
+											<p class="text-sm text-gray-600"><strong>Pembaca:</strong> ${manga.readers}</p>
+											<p class="text-sm text-gray-600"><strong>Ringkasan:</strong> ${manga.summary}</p>
+											<p class="text-sm text-gray-600"><strong>Chapter Terbaru:</strong> ${manga.latestChapter}</p>
+										</div>
+									</div>
+								</a>
+							`);
+                        });
+                    } else {
+                        $('#load-more').prop('disabled', true).text('No more manga available');
+                    }
+                },
+                error: function(err) {
+                    console.error('Error fetching more manga:', err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

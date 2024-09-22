@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter <%= chapterNumber %> - All Hail the Sect Leader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold text-center">Komik All Hail the Sect Leader Chapter <%= chapterNumber %></h1>
+        <div id="Baca_Komik" onclick="klik('body')" class="my-4">
+            <% images.forEach((image, index) => { %>
+                <img itemprop="image" src="<%= image.src %>" alt="Chapter <%= chapterNumber %> Gambar <%= index + 1 %>" class="mx-auto mb-4" onerror="this.onerror=null;this.src='<%= image.fallbackSrc %>';">
+            <% }); %>
+            <span class="chapterInfo" valuelink="<%= chapterLink %>" valuechapter="<%= chapterNumber %>" valuegambar="<%= totalImages %>" valueview="<%= viewLink %>"></span>
+        </div>
+    </div>
+</body>
+</html>

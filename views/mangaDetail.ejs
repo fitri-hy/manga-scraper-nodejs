@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Manga - <%= manga.title %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container mx-auto my-4">
+        <h1 class="text-2xl font-bold mb-4"><%= manga.title %></h1>
+        <h2 class="text-xl font-semibold">Informasi Manga</h2>
+        <div class="mb-4 flex p-4 gap-4 items-center">
+			<img src="<%= manga.imageUrl %>" alt="<%= manga.title %>" class="w-36 h-auto mb-4 rounded">
+			<table class="min-w-full border border-gray-300 mt-2">
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Judul Indonesia:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.indonesianTitle %></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Genre:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.genre.join(', ') %></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Pengarang:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.author %></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Status:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.status %></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Umur Pembaca:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.readerAge %></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-gray-300 p-2"><strong>Cara Baca:</strong></td>
+                        <td class="border border-gray-300 p-2"><%= manga.readingDirection %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4">Daftar Chapter</h2>
+        <table class="min-w-full border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 p-2">Nomor Chapter</th>
+                    <th class="border border-gray-300 p-2 text-center">View</th>
+                    <th class="border border-gray-300 p-2">Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% chapters.forEach(chapter => { %>
+                    <tr>
+                        <td class="border border-gray-300 p-2">
+                            <a href="/chapter<%= chapter.link %>" class="text-blue-500 hover:underline"><%= chapter.title %></a>
+                        </td>
+                        <td class="border border-gray-300 p-2 text-center"><%= chapter.views %></td>
+                        <td class="border border-gray-300 p-2"><%= chapter.date %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

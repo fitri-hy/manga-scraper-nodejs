@@ -4,13 +4,13 @@
 
 Manga-Scraper-NodeJS adalah aplikasi berbasis Node.js yang dirancang untuk mengumpulkan dan menyimpan data manga.
 
-Fitur:
+## Fitur:
 - Auto Update
 - No Database
 - Basic scrapper
 - Mudah di custom
 
-Install
+## Install
 ```
 git clone https://github.com/fitri-hy/manga-scraper-nodejs.git
 cd manga-scraper-nodejs
